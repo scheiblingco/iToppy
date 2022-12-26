@@ -1,0 +1,21 @@
+- iToppy
+  - [__init__.py]
+    - cls-iTop
+      - fn-make_request
+      - fn-get_oql
+      - fn-list_operations
+      - fn-test_connection
+      - fn-get
+      - fn-create
+      - fn-update
+      - fn-delete
+  - [models.py]
+    - enumcls-isStatusCode
+    - enumcls-iAuth
+    - dcls-iResponse
+    - dcls-iSuccessfulResponse
+    - dcls-iEmptyResponse
+    - dcls-iUnsuccessfulResponse
+    - dcls-iObject
+    - dcls-iOperation
+    - dcls-iOQLBuilder

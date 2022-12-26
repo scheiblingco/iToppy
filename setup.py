@@ -5,8 +5,8 @@ from setuptools import setup, find_packages
 # Repository name is the module name with dashes, ex. hit-py-template
 # Module name can only contain underscores, so hit_py_template
 # Also, configure the module under hit_py_template/__version__.py
-repository_name = 'pytemplate'
-module_name = 'pytemplate'
+repository_name = 'iToppy'
+module_name = 'iToppy'
 python_min_version = ">=3.6"
 
 with open('requirements.txt', 'r') as f:
@@ -47,10 +47,5 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
-    keywords='python template package module cli',
-    entry_points = {
-        'console_scripts': [
-            'pytemplate=pytemplate.cli:main'
-        ]
-    }
+    keywords='python itop itopy itoppy rest api cmdb service management',
 )

@@ -1,53 +1,68 @@
-# pytemplate
-Python application/plugin template repository
+# iTop Library for Python
+iTop CMDB/Service Management Rest API library for Python
 
-[toc]: # Table of Contents
+## Todo
+- base (__init__.yml)
+- models.py
+
 
 # Usage
-## requirements.txt
-Requirements for compiling/installing the application itself
+## Authentication
+Authentication can be performed two ways:
 
-## requirements-ci.txt
-Additional requirements for the CI/CD flows
+### Form
+This method works only when iTop doesn't have the form login disabled (e.g. direct auth when using the itop-saml extension).
 
-## setup.py
-Configuration file for the application, installation and CLI entry point
+### Basic
+This method can be used if you have the SAML plugin and want users to be automatically forwarded to the IDP when loading the page, but still want to be able to use the API. Make sure that basic is the first authentication method in the list in the configuration file, e.g.
+```php
+	'allowed_login_types' => 'basic|saml|external',
+```
+### Examples
+```python
+from iToppy import iTop, iTopAuth
 
-## pyproject.toml
-Additional build instructions
+# Form Authentication (default)
+connection = iTop(
+    url='https://itop.example.com/webservices/rest.php', 
+    username='username', 
+    password='password', 
+    version='1.3',
+    auth=iTopAuth.FORM
+)
 
-## .gitpod.yml
-Instructions for building development container @gitpod.io
+# Basic Authentication
+connection = iTop(
+    url='https://itop.example.com/webservices/rest.php', 
+    username='username', 
+    password='password', 
+    version='1.3',
+    auth=iTopAuth.BASIC
+)
+```
 
-## tpl.github
-Rename this dir to .github to activate the Github Actions
+## Querying
+### Get objects
+```python
+# Get all objects of class UserRequest
+user_requests = connection.get('UserRequest')
 
-### Linting
-Scans the code for errors/formatting, outputs a HTML report uploaded to Github
+# Full Get syntax
+connection.get(
+    
+    # The class of object/objects to receive
+    itop_class="UserRequest",
+    
+    # A string representing the key, OQL query in string form or iTopOQLQuery object
+    key="1",
+    
+    # The fields to retrieve
+    fields=["title", "description"]
+    
+    # Limit the number of results per page
+    ,limit=10,
 
-### Matrix_testing
-Testing on several OSes with several python versions
-
-### Testing
-Regular testing on a single OS/version
-
-### Publish
-Publish the package to pypi and the documentation to github pages (/docs)
-
-## src/pytemplate
-The source code of the application
-
-### __init__.py
-The entry point, can be empty but needs to be present
-
-### __version__.py
-The version information for the package/module
-
-### cli.py
-The CLI entry point, if usage via the command line is desired
-
-### main.py
-The main entry point, example class. No need for using the name main.py
-
-## tests
-The tests for the application. With inclusion like src.pytemplate.xyz, the tests need to be run from the project root folder (python3 -m unittest discover tests/)
+    # The page to retrieve
+    page=1
+)
+```
